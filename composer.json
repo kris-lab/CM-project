@@ -1,0 +1,18 @@
+{
+	"require": {
+		"cargomedia/CM": "1.*"
+	},
+	"repositories": [
+		{
+			"packagist": false
+		},
+		{
+			"type": "composer",
+			"url": "http://broker.cargomedia.ch/repositories/cm"
+		},
+		{
+			"type": "composer",
+			"url": "http://satis.cargomedia.ch/"
+		}
+	]
+}
