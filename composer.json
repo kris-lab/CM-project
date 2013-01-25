@@ -1,6 +1,6 @@
 {
 	"require": {
-		"cargomedia/CM": "1.0.22"
+		"cargomedia/CM": "1.*"
 	},
 	"repositories": [
 		{
