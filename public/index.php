@@ -2,7 +2,7 @@
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 $bootloader = new CM_Bootloader(dirname(__DIR__) . '/', 'library/');
-$bootloader->load(array('autoloader', 'constants', 'exceptionHandler', 'errorHandler', 'defaults'));
+$bootloader->load(array('constants', 'exceptionHandler', 'errorHandler', 'defaults'));
 
 
 $method = $_SERVER['REQUEST_METHOD'];
