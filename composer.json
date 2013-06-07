@@ -3,6 +3,7 @@
 	"require": {
 		"cargomedia/CM": "1.*"
 	},
+	"minimum-stability": "beta",
 	"repositories": [
 		{
 			"packagist": false
