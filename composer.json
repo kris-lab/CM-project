@@ -1,7 +1,7 @@
 {
 	"name": "cargomedia/cm-project",
 	"require": {
-		"cargomedia/cm": "1.*"
+		"cargomedia/CM": "1.*"
 	},
 	"minimum-stability": "alpha",
 	"repositories": [
