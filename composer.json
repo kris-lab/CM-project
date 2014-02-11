@@ -3,5 +3,8 @@
     "require": {
         "cargomedia/cm": "~1.3.7"
     },
-    "minimum-stability": "alpha"
+    "minimum-stability": "alpha",
+    "config": {
+        "bin-dir": "bin/"
+    }
 }
