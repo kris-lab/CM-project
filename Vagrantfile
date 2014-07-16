@@ -23,11 +23,14 @@ Vagrant.configure('2') do |config|
     puppet.manifests_path = 'puppet/manifests'
   end
 
-  config.vm.provision 'shell', inline: [
+  config.vm.provision 'shell', run: 'always', inline: [
     'cd /home/vagrant/cm-project',
     'composer --no-interaction install --dev',
     'bin/cm app set-deploy-version',
     'bin/cm app setup',
     'bin/cm db run-updates',
+    'sudo foreman-debian stop --app cm-project',
+    'sudo foreman-debian install --app cm-project --user root',
+    'sudo foreman-debian start --app cm-project',
   ].join(' && ')
 end
