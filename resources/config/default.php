@@ -1,8 +1,20 @@
 <?php
 
-$config->debug = true;
+return function (CM_Config_Node $config) {
 
-$config->CM_Db_Db->db = 'cm-project';
-$config->CM_Db_Db->username = 'root';
-$config->CM_Db_Db->password = '';
-$config->CM_Db_Db->server = array('host' => '127.0.0.1', 'port' => 3306);
+    $config->debug = true;
+
+    $config->services['database-master'] = array(
+        'class'     => 'CM_Db_Client',
+        'arguments' => array(
+            array(
+                'host'             => 'localhost',
+                'port'             => 3306,
+                'username'         => 'root',
+                'password'         => '',
+                'db'               => 'cm-project',
+                'reconnectTimeout' => 300
+            )
+        )
+    );
+};
