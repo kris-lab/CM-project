@@ -25,6 +25,7 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision 'shell', run: 'always', inline: [
     'cd /home/vagrant/cm-project',
+    'rm -rf vendor/',
     'composer --no-interaction install --dev',
     'bin/cm app set-deploy-version',
     'bin/cm app setup',
