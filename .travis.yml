@@ -1,0 +1,32 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+
+services:
+  - mysql
+  - memcached
+  - elasticsearch
+  - redis-server
+  - mongodb
+
+before_script:
+  - tests/travis/install-php-runkit.sh
+  - tests/travis/install-php-svm.sh
+  - printf "\n" | pecl install imagick
+  - pecl install stats
+  - sudo apt-get install libgearman-dev && pecl install gearman-1.0.3
+  - sh -c "if [ `php-config --vernum` -ge 50500 ]; then printf "yes\n" | pecl install apcu-beta; fi"
+  - phpenv config-add tests/travis/php.ini
+  - phpenv config-add tests/travis/php-$TRAVIS_PHP_VERSION.ini
+
+script:
+  - PROJECT_PATH=$(pwd) && cd $(mktemp -dt test)
+  - echo "{\"package\":{\"name\":\"cargomedia/cm-project\",\"version\":\"dev-master\",\"source\":{\"type\":\"git\",\"url\":\"${PROJECT_PATH}/.git\",\"reference\":\"master\"}}}" > packages.json
+  - composer create-project --repository-url=packages.json --stability=dev cargomedia/cm-project test-project
+  - cd test-project
+  - bin/cm
+
+notifications:
+  email: false
