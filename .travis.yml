@@ -22,7 +22,7 @@ before_script:
   - phpenv config-add tests/travis/php-$TRAVIS_PHP_VERSION.ini
 
 script:
-  - rm -rf .git && git init && git commit -m "initial commit"
+  - rm -rf .git && git init && git commit --author="user <user@example.com>" -m "initial commit"
   - REPO_PATH=$(pwd) && cd $(mktemp -dt test)
   - echo "{\"package\":{\"name\":\"cargomedia/cm-project\",\"version\":\"dev-master\",\"source\":{\"type\":\"git\",\"url\":\"${REPO_PATH}/.git\",\"reference\":\"master\"}}}" > packages.json
   - composer create-project --repository-url=packages.json --stability=dev cargomedia/cm-project test-project
