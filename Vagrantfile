@@ -3,9 +3,10 @@ Vagrant.configure('2') do |config|
   config.vm.box = 'cargomedia/debian-7-amd64-cm'
 
   config.vm.hostname = 'www.cm-project.dev'
-  if Vagrant.has_plugin? 'vagrant-dns'
-    config.dns.tld = 'dev'
-    config.dns.patterns = [/^.*cm-project.dev$/]
+  if Vagrant.has_plugin? 'landrush'
+    config.landrush.enable
+    config.landrush.tld = 'dev'
+    config.landrush.host 'cm-project.dev'
   end
 
   if Vagrant.has_plugin? 'vagrant-phpstorm-tunnel'
@@ -23,11 +24,14 @@ Vagrant.configure('2') do |config|
     puppet.manifests_path = 'puppet/manifests'
   end
 
-  config.vm.provision 'shell', inline: [
+  config.vm.provision 'shell', run: 'always', inline: [
     'cd /home/vagrant/cm-project',
     'composer --no-interaction install --dev',
     'bin/cm app set-deploy-version',
     'bin/cm app setup',
     'bin/cm db run-updates',
+    'sudo foreman-debian stop --app cm-project',
+    'sudo foreman-debian install --app cm-project --user root',
+    'sudo foreman-debian start --app cm-project',
   ].join(' && ')
 end

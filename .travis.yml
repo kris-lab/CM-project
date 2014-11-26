@@ -22,11 +22,14 @@ before_script:
   - phpenv config-add tests/travis/php-$TRAVIS_PHP_VERSION.ini
 
 script:
-  - PROJECT_PATH=$(pwd) && cd $(mktemp -dt test)
-  - echo "{\"package\":{\"name\":\"cargomedia/cm-project\",\"version\":\"dev-master\",\"source\":{\"type\":\"git\",\"url\":\"${PROJECT_PATH}/.git\",\"reference\":\"master\"}}}" > packages.json
+  # These commands test "CM-project" itself. Replace them with your own testing steps for your project.
+  - git config --global user.name "Foo" && git config --global user.email "foo@example.com"
+  - rm -rf .git && git init && git add -A && git commit -qm "initial commit"
+  - REPO_PATH=$(pwd) && cd $(mktemp -dt test)
+  - echo "{\"package\":{\"name\":\"cargomedia/cm-project\",\"version\":\"dev-master\",\"source\":{\"type\":\"git\",\"url\":\"${REPO_PATH}/.git\",\"reference\":\"master\"}}}" > packages.json
   - composer create-project --repository-url=packages.json --stability=dev cargomedia/cm-project test-project
   - cd test-project
-  - bin/cm
+  - bin/cm 2>&1 | grep -q 'Usage'
 
 notifications:
   email: false
