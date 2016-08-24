@@ -15,7 +15,7 @@ node default {
     cdn_origin => "origin-www.${domain}",
   }
 
-  environment::variable {'PHP_IDE_CONFIG':
+  env::variable {'PHP_IDE_CONFIG':
     value => 'serverName=www.cm-project.dev',
   }
 
